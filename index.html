@@ -3,578 +3,1640 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="KVANT — Engenharia de Vendas com IA. Automatize seu atendimento no WhatsApp e venda 24/7.">
-    <title>KVANT — Engenharia de Vendas com IA</title>
+    <title>KVANT | Engenharia de Vendas com IA</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        :root {
+            --kvant-primary: #45a7b9;
+            --kvant-primary-light: #5bc4d6;
+            --kvant-primary-dark: #3a8f9e;
+            --kvant-dark: #050505;
+            --kvant-darker: #000000;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: var(--kvant-darker);
+            overflow-x: hidden;
+        }
+        
+        /* Premium Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #45a7b9 0%, #7dd3e1 50%, #45a7b9 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 200% center; }
+        }
+        
+        /* Animated Border Gradient */
+        .border-gradient {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);
+        }
+        
+        .border-gradient::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(69, 167, 185, 0.4), rgba(69, 167, 185, 0.1), rgba(69, 167, 185, 0.4));
+            background-size: 200% 200%;
+            animation: borderMove 4s ease infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        @keyframes borderMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Noise Texture */
+        .noise-bg {
+            position: relative;
+        }
+        
+        .noise-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+            pointer-events: none;
+        }
+        
+        /* Hero Glow */
+        .hero-glow {
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(69, 167, 185, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 80% at 80% 50%, rgba(69, 167, 185, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 80% at 20% 80%, rgba(69, 167, 185, 0.05) 0%, transparent 50%);
+        }
+        
+        /* Premium Glass */
+        .glass-premium {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        
+        .glass-hover {
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .glass-hover:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+            border-color: rgba(69, 167, 185, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.4),
+                0 0 100px rgba(69, 167, 185, 0.1);
+        }
+        
+        /* Premium Button */
+        .btn-premium {
+            background: linear-gradient(135deg, #45a7b9 0%, #3a8f9e 100%);
+            box-shadow: 
+                0 4px 20px rgba(69, 167, 185, 0.4),
+                inset 0 1px 0 rgba(255,255,255,0.2),
+                inset 0 -1px 0 rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 10px 40px rgba(69, 167, 185, 0.5),
+                0 0 80px rgba(69, 167, 185, 0.3),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        
+        .btn-premium:hover::before {
+            left: 100%;
+        }
+        
+        .btn-outline {
+            position: relative;
+            background: transparent;
+            border: 1.5px solid rgba(69, 167, 185, 0.5);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden;
+        }
+        
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(69, 167, 185, 0.15) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .btn-outline:hover {
+            border-color: #45a7b9;
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(69, 167, 185, 0.3);
+        }
+        
+        .btn-outline:hover::before {
+            opacity: 1;
+        }
+        
+        /* Chat Demo Premium */
+        .chat-container {
+            perspective: 2000px;
+            transform-style: preserve-3d;
+        }
+        
+        .chat-demo-premium {
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+        }
+        
+        .chat-container:hover .chat-demo-premium {
+            transform: scale(1.03) rotateX(2deg) rotateY(-3deg);
+        }
+        
+        .chat-container:hover .ai-overlay {
+            opacity: 1;
+            transform: translateX(0) rotateY(0);
+        }
+        
+        .chat-container:hover .phone-glow {
+            opacity: 1;
+        }
+        
+        .ai-overlay {
+            opacity: 0;
+            transform: translateX(30px) rotateY(-15deg);
+            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.15s;
+        }
+        
+        .phone-glow {
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(135deg, #45a7b9, #3a8f9e, #5bc4d6, #45a7b9);
+            background-size: 300% 300%;
+            border-radius: 36px;
+            opacity: 0;
+            transition: opacity 0.8s;
+            filter: blur(25px);
+            z-index: -1;
+            animation: glowRotate 5s ease infinite;
+        }
+        
+        @keyframes glowRotate {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Message Animation */
+        .msg-animate {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: msgAppear 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        
+        .msg-animate:nth-child(1) { animation-delay: 0.3s; }
+        .msg-animate:nth-child(2) { animation-delay: 0.8s; }
+        .msg-animate:nth-child(3) { animation-delay: 1.4s; }
+        .msg-animate:nth-child(4) { animation-delay: 2s; }
+        .msg-animate:nth-child(5) { animation-delay: 2.6s; }
+        
+        @keyframes msgAppear {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Floating Elements */
+        .float-slow {
+            animation: floatSlow 8s ease-in-out infinite;
+        }
+        
+        .float-medium {
+            animation: floatMedium 6s ease-in-out infinite;
+        }
+        
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+        
+        @keyframes floatMedium {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(-2deg); }
+        }
+        
+        /* Glow Pulse */
+        .glow-pulse {
+            animation: glowPulse 2.5s ease-in-out infinite;
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(69, 167, 185, 0.4);
+            }
+            50% { 
+                box-shadow: 0 0 50px rgba(69, 167, 185, 0.7);
+            }
+        }
+        
+        /* Plan Card Premium */
+        .plan-card {
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+        
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            transition: all 0.6s;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+        
+        .plan-card:hover::before {
+            background: linear-gradient(135deg, rgba(69, 167, 185, 0.5), rgba(69, 167, 185, 0.1));
+        }
+        
+        .plan-card.featured {
+            background: linear-gradient(135deg, rgba(69, 167, 185, 0.1) 0%, rgba(69, 167, 185, 0.02) 100%);
+        }
+        
+        .plan-card.featured::before {
+            background: linear-gradient(135deg, rgba(69, 167, 185, 0.6), rgba(69, 167, 185, 0.2));
+        }
+        
+        /* Section Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Scrollbar Premium */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #45a7b9, #3a8f9e);
+            border-radius: 4px;
+        }
+        
+        /* Video Container */
+        .video-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .video-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, #45a7b9, #3a8f9e, #5bc4d6);
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0.6;
+            transition: opacity 0.4s;
+        }
+        
+        .video-wrapper:hover {
+            transform: scale(1.02);
+        }
+        
+        .video-wrapper:hover::before {
+            opacity: 1;
+        }
+        
+        .video-play-btn {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .video-wrapper:hover .video-play-btn {
+            transform: scale(1.15);
+            box-shadow: 0 0 80px rgba(69, 167, 185, 0.8);
+        }
+        
+        /* Stat Number Animation */
+        .stat-number {
+            background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Nav Premium */
+        .nav-premium {
+            backdrop-filter: blur(40px) saturate(180%);
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        /* Icon Box */
+        .icon-box {
+            background: linear-gradient(135deg, rgba(69, 167, 185, 0.15) 0%, rgba(69, 167, 185, 0.05) 100%);
+            border: 1px solid rgba(69, 167, 185, 0.25);
+            transition: all 0.5s;
+        }
+        
+        .icon-box:hover, .group:hover .icon-box {
+            background: linear-gradient(135deg, rgba(69, 167, 185, 0.3) 0%, rgba(69, 167, 185, 0.15) 100%);
+            border-color: rgba(69, 167, 185, 0.5);
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 10px 30px rgba(69, 167, 185, 0.3);
+        }
+        
+        /* Line Divider */
+        .line-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(69, 167, 185, 0.4), transparent);
+        }
+        
+        /* Typing Indicator */
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #45a7b9;
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typingDot {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-8px); opacity: 1; }
+        }
+        
+        /* Client Logo */
+        .client-logo {
+            filter: grayscale(100%) brightness(0.6);
+            opacity: 0.6;
+            transition: all 0.5s;
+        }
+        
+        .client-logo:hover {
+            filter: grayscale(0%) brightness(1);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        /* Section spacing */
+        section {
+            scroll-margin-top: 100px;
+        }
+        
+        /* Guarantee card */
+        .guarantee-card {
+            background: 
+                linear-gradient(135deg, rgba(69, 167, 185, 0.12) 0%, transparent 50%),
+                linear-gradient(225deg, rgba(69, 167, 185, 0.08) 0%, transparent 50%);
+            border: 1px solid rgba(69, 167, 185, 0.25);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Feature Card Hover */
+        .feature-card {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .feature-card:hover {
+            transform: translateX(10px);
+        }
+        
+        /* Text Gradient Underline */
+        .underline-gradient {
+            position: relative;
+        }
+        
+        .underline-gradient::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #45a7b9, transparent);
+        }
+        
+        /* Metric Card */
+        .metric-card {
+            background: linear-gradient(135deg, rgba(69, 167, 185, 0.08) 0%, rgba(69, 167, 185, 0.02) 100%);
+            border: 1px solid rgba(69, 167, 185, 0.12);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .metric-card:hover {
+            border-color: rgba(69, 167, 185, 0.4);
+            background: linear-gradient(135deg, rgba(69, 167, 185, 0.15) 0%, rgba(69, 167, 185, 0.05) 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(69, 167, 185, 0.15);
+        }
+        
+        /* Particle Effect */
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #45a7b9;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 20s infinite linear;
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
 </head>
-<body>
-    <!-- Cursor Glow Effect -->
-    <div class="cursor-glow" id="cursorGlow"></div>
-
+<body class="text-white antialiased">
+    
     <!-- Navigation -->
-    <header class="header" id="header">
-        <div class="header__container">
-            <a href="#" class="header__logo">
-                <svg class="header__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="32" height="32" rx="8" fill="url(#logoGradient)"/>
-                    <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="white" stroke-width="1.5" fill="none"/>
-                    <circle cx="16" cy="16" r="3" fill="white"/>
-                    <defs>
-                        <linearGradient id="logoGradient" x1="0" y1="0" x2="32" y2="32">
-                            <stop offset="0%" stop-color="#45a7b9"/>
-                            <stop offset="100%" stop-color="#2d8a9a"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                <span>KVANT</span>
-            </a>
-            
-            <nav class="header__nav">
-                <a href="#solucao">Solução</a>
-                <a href="#processo">Processo</a>
-                <a href="#planos">Planos</a>
-                <a href="#garantia">Garantia</a>
-            </nav>
-
-            <div class="header__actions">
-                <a href="#planos" class="btn btn--primary">Começar</a>
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-premium">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl overflow-hidden transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#45a7b9]/30">
+                        <img src="android-chrome-192x192.png" alt="KVANT" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-2xl font-bold tracking-tight">KVANT</span>
+                </a>
+                
+                <div class="hidden lg:flex items-center gap-10">
+                    <a href="#como-funciona" class="text-gray-400 hover:text-white transition-colors text-sm font-medium relative group">
+                        Como Funciona
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#45a7b9] transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#beneficios" class="text-gray-400 hover:text-white transition-colors text-sm font-medium relative group">
+                        Benefícios
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#45a7b9] transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#planos" class="text-gray-400 hover:text-white transition-colors text-sm font-medium relative group">
+                        Planos
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#45a7b9] transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#garantia" class="text-gray-400 hover:text-white transition-colors text-sm font-medium relative group">
+                        Garantia
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#45a7b9] transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#contato" class="text-gray-400 hover:text-white transition-colors text-sm font-medium relative group">
+                        Contato
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#45a7b9] transition-all group-hover:w-full"></span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <a href="https://wa.me/553597612531?text=Olá! Gostaria de testar a IA da KVANT gratuitamente." class="hidden sm:flex btn-outline px-5 py-2.5 rounded-full text-sm font-semibold text-[#45a7b9]">
+                        Testar Grátis
+                    </a>
+                    <a href="https://wa.me/553597612531?text=Olá! Quero começar a usar a IA da KVANT para automatizar minhas vendas." class="btn-premium px-5 py-2.5 rounded-full text-sm font-semibold text-white">
+                        Começar Agora
+                    </a>
+                    <button class="lg:hidden w-10 h-10 flex items-center justify-center" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
-
-            <button class="header__mobile-trigger" id="mobileMenuTrigger" aria-label="Menu">
-                <span></span>
-                <span></span>
-            </button>
         </div>
-    </header>
-
+    </nav>
+    
     <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <nav class="mobile-menu__nav">
-            <a href="#solucao">Solução</a>
-            <a href="#processo">Processo</a>
-            <a href="#planos">Planos</a>
-            <a href="#garantia">Garantia</a>
-        </nav>
-        <a href="#planos" class="btn btn--primary btn--full">Começar agora</a>
+    <div class="mobile-menu fixed inset-0 z-40 bg-black/98 backdrop-blur-xl lg:hidden flex flex-col pt-24 px-6">
+        <div class="flex flex-col gap-6">
+            <a href="#como-funciona" onclick="toggleMobileMenu()" class="text-2xl font-semibold hover:text-[#45a7b9] transition-colors">Como Funciona</a>
+            <a href="#beneficios" onclick="toggleMobileMenu()" class="text-2xl font-semibold hover:text-[#45a7b9] transition-colors">Benefícios</a>
+            <a href="#planos" onclick="toggleMobileMenu()" class="text-2xl font-semibold hover:text-[#45a7b9] transition-colors">Planos</a>
+            <a href="#garantia" onclick="toggleMobileMenu()" class="text-2xl font-semibold hover:text-[#45a7b9] transition-colors">Garantia</a>
+            <a href="#contato" onclick="toggleMobileMenu()" class="text-2xl font-semibold hover:text-[#45a7b9] transition-colors">Contato</a>
+        </div>
+        <div class="mt-auto pb-10 flex flex-col gap-4">
+            <a href="https://wa.me/553597612531?text=Olá! Gostaria de testar a IA da KVANT." class="btn-outline w-full py-4 rounded-full text-center font-semibold text-[#45a7b9]">
+                Testar Grátis
+            </a>
+            <a href="https://wa.me/553597612531?text=Olá! Quero começar." class="btn-premium w-full py-4 rounded-full text-center font-semibold">
+                Começar Agora
+            </a>
+        </div>
+        <button class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center" onclick="toggleMobileMenu()">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
     </div>
-    <div class="mobile-menu__overlay" id="mobileMenuOverlay"></div>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero__bg">
-            <div class="hero__gradient"></div>
-            <div class="hero__grid"></div>
+    <!-- Hero Section -->
+    <section class="min-h-screen hero-glow noise-bg relative overflow-hidden pt-20">
+        <!-- Particles -->
+        <div class="particles">
+            <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+            <div class="particle" style="left: 50%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 70%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 80%; animation-delay: 5s;"></div>
+            <div class="particle" style="left: 90%; animation-delay: 2.5s;"></div>
         </div>
         
-        <div class="container">
-            <div class="hero__content">
-                <div class="hero__badge">
-                    <span class="hero__badge-dot"></span>
-                    Engenharia de Vendas com IA
-                </div>
-                
-                <h1 class="hero__title">
-                    Sua IA vendendo<br>
-                    <span class="hero__title-highlight">24 horas por dia</span>
-                </h1>
-                
-                <p class="hero__description">
-                    Integre inteligência artificial ao WhatsApp da sua empresa. 
-                    Atenda, qualifique e feche vendas automaticamente — enquanto você foca no que importa.
-                </p>
-                
-                <div class="hero__cta">
-                    <a href="#planos" class="btn btn--primary btn--large">
-                        Ver planos
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                    <a href="#processo" class="btn btn--ghost btn--large">
-                        Como funciona
-                    </a>
-                </div>
-
-                <div class="hero__metrics">
-                    <div class="hero__metric">
-                        <span class="hero__metric-value">24/7</span>
-                        <span class="hero__metric-label">Disponibilidade</span>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-36 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <div class="space-y-10">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border-gradient backdrop-blur-sm">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#45a7b9] opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#45a7b9]"></span>
+                        </span>
+                        <span class="text-sm text-[#45a7b9] font-medium tracking-wide">Inteligência Artificial para Vendas</span>
                     </div>
-                    <div class="hero__metric-divider"></div>
-                    <div class="hero__metric">
-                        <span class="hero__metric-value">&lt;3s</span>
-                        <span class="hero__metric-label">Tempo de resposta</span>
-                    </div>
-                    <div class="hero__metric-divider"></div>
-                    <div class="hero__metric">
-                        <span class="hero__metric-value">99%</span>
-                        <span class="hero__metric-label">Uptime garantido</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero__visual">
-                <div class="hero__phone">
-                    <div class="hero__phone-notch"></div>
-                    <div class="hero__phone-screen">
-                        <div class="hero__chat">
-                            <div class="hero__chat-header">
-                                <div class="hero__chat-avatar">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="hero__chat-info">
-                                    <span class="hero__chat-name">KVANT IA</span>
-                                    <span class="hero__chat-status">Online agora</span>
-                                </div>
-                            </div>
-                            <div class="hero__chat-messages">
-                                <div class="hero__chat-message hero__chat-message--received">
-                                    <p>Olá! Quero saber sobre os planos</p>
-                                    <span class="hero__chat-time">10:42</span>
-                                </div>
-                                <div class="hero__chat-message hero__chat-message--sent">
-                                    <p>Oi! 👋 Que bom ter você aqui. Temos 3 planos. Qual o tamanho da sua operação?</p>
-                                    <span class="hero__chat-time">10:42</span>
-                                </div>
-                                <div class="hero__chat-message hero__chat-message--received">
-                                    <p>Equipe de 5 pessoas</p>
-                                    <span class="hero__chat-time">10:43</span>
-                                </div>
-                                <div class="hero__chat-message hero__chat-message--sent">
-                                    <p>Perfeito! O Plano Pro é ideal. Posso agendar uma demonstração?</p>
-                                    <span class="hero__chat-time">10:43</span>
-                                </div>
-                            </div>
-                            <div class="hero__chat-typing">
-                                <span></span><span></span><span></span>
-                                IA digitando...
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Problem / Solution -->
-    <section class="solution" id="solucao">
-        <div class="container">
-            <div class="solution__header">
-                <span class="section-label">O problema</span>
-                <h2 class="section-title">Você investe em tráfego, mas perde vendas no atendimento</h2>
-                <p class="section-description">O maior gargalo não é a captação — é o tempo de resposta.</p>
-            </div>
-
-            <div class="solution__problems">
-                <div class="solution__problem">
-                    <div class="solution__problem-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="12,6 12,12 16,14"/>
-                        </svg>
-                    </div>
-                    <h3>Demora no primeiro contato</h3>
-                    <p>Leads esfriando enquanto esperam resposta</p>
-                </div>
-                <div class="solution__problem">
-                    <div class="solution__problem-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                        </svg>
-                    </div>
-                    <h3>Horário comercial limitado</h3>
-                    <p>Vendas perdidas à noite e fins de semana</p>
-                </div>
-                <div class="solution__problem">
-                    <div class="solution__problem-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <line x1="23" y1="11" x2="17" y2="11"/>
-                        </svg>
-                    </div>
-                    <h3>Equipe sobrecarregada</h3>
-                    <p>Respondendo perguntas repetitivas</p>
-                </div>
-                <div class="solution__problem">
-                    <div class="solution__problem-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M18 6L6 18M6 6l12 12"/>
-                        </svg>
-                    </div>
-                    <h3>Atendimento inconsistente</h3>
-                    <p>Cada vendedor responde diferente</p>
-                </div>
-            </div>
-
-            <div class="solution__answer">
-                <div class="solution__answer-content">
-                    <span class="section-label">A solução</span>
-                    <h3>IA que vende como seu melhor vendedor</h3>
-                    <p>Nossa IA se integra ao WhatsApp da sua empresa e assume o atendimento do início ao fim. Conversa naturalmente, entende objeções e fecha vendas.</p>
                     
-                    <ul class="solution__features">
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            Respostas instantâneas 24/7
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            Atendimento personalizado para cada lead
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            Integração com seu CRM
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            Treinada com o DNA do seu negócio
-                        </li>
-                    </ul>
-                </div>
-                <div class="solution__answer-visual">
-                    <div class="solution__diagram">
-                        <div class="solution__diagram-node solution__diagram-node--lead">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                <circle cx="12" cy="7" r="4"/>
-                            </svg>
-                            <span>Lead</span>
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight">
+                        <span class="gradient-text">Engenharia</span><br>
+                        <span class="text-white">de Vendas</span><br>
+                        <span class="text-white">com </span><span class="gradient-text">IA</span>
+                    </h1>
+                    
+                    <p class="text-lg lg:text-xl text-gray-400 leading-relaxed max-w-xl">
+                        Sua IA vende no WhatsApp <span class="text-white font-semibold">24 horas por dia, 7 dias por semana</span>. 
+                        Do primeiro contato ao fechamento, <span class="text-[#45a7b9]">sem perder um único lead</span>.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a href="https://wa.me/553597612531?text=Olá! Quero começar a usar a IA da KVANT para automatizar minhas vendas no WhatsApp." class="btn-premium px-8 py-4 rounded-full text-lg font-semibold text-white flex items-center justify-center gap-3">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                            Começar Agora
+                        </a>
+                        <a href="https://wa.me/553597612531?text=Olá! Gostaria de testar a IA da KVANT gratuitamente antes de contratar." class="btn-outline px-8 py-4 rounded-full text-lg font-semibold text-[#45a7b9] flex items-center justify-center gap-3">
+                            <i class="fas fa-play text-sm"></i>
+                            Testar Gratuitamente
+                        </a>
+                    </div>
+                    
+                    <!-- Metrics -->
+                    <div class="flex flex-wrap items-center gap-8 pt-6">
+                        <div class="text-center">
+                            <div class="text-4xl font-bold stat-number mono">24/7</div>
+                            <div class="text-sm text-gray-500 mt-1">Sempre ativo</div>
                         </div>
-                        <div class="solution__diagram-line"></div>
-                        <div class="solution__diagram-node solution__diagram-node--ai">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
-                                <path d="M2 17L12 22L22 17"/>
-                                <path d="M2 12L12 17L22 12"/>
-                            </svg>
-                            <span>KVANT IA</span>
+                        <div class="w-px h-12 bg-white/10"></div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold stat-number mono">&lt;3s</div>
+                            <div class="text-sm text-gray-500 mt-1">Tempo de resposta</div>
                         </div>
-                        <div class="solution__diagram-line"></div>
-                        <div class="solution__diagram-node solution__diagram-node--sale">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                            </svg>
-                            <span>Venda</span>
+                        <div class="w-px h-12 bg-white/10"></div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold stat-number mono">100%</div>
+                            <div class="text-sm text-gray-500 mt-1">Leads atendidos</div>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Chat Demo Premium -->
+                <div class="chat-container relative">
+                    <div class="chat-demo-premium relative">
+                        <!-- Phone Glow -->
+                        <div class="phone-glow"></div>
+                        
+                        <!-- Phone Frame -->
+                        <div class="bg-[#0a0a0a] rounded-[36px] p-2 shadow-2xl border border-white/10 relative">
+                            <!-- Dynamic Island -->
+                            <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-28 h-7 bg-black rounded-full z-20"></div>
+                            
+                            <div class="bg-[#080808] rounded-[28px] overflow-hidden">
+                                <!-- WhatsApp Header -->
+                                <div class="bg-gradient-to-r from-[#1a1f25] to-[#0f1318] px-4 py-4 pt-12 flex items-center gap-3 border-b border-white/5">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden ring-2 ring-[#45a7b9]/40">
+                                        <img src="android-chrome-192x192.png" alt="KVANT" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-white font-semibold">KVANT IA</div>
+                                        <div class="text-green-400 text-xs flex items-center gap-1.5">
+                                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                                            online agora
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-5 text-gray-400">
+                                        <i class="fas fa-video"></i>
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                </div>
+                                
+                                <!-- Chat Messages - Conversa mais realista de IA -->
+                                <div class="bg-[#0a0d10] p-4 space-y-3 min-h-[380px] relative" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cpath d=&quot;M0 0h60v60H0z&quot; fill=&quot;%23080a0c&quot;/%3E%3Ccircle cx=&quot;30&quot; cy=&quot;30&quot; r=&quot;1&quot; fill=&quot;%230d1117&quot;/%3E%3C/svg%3E')">
+                                    <!-- User Message -->
+                                    <div class="flex justify-end msg-animate">
+                                        <div class="bg-[#45a7b9] px-4 py-3 rounded-2xl rounded-tr-sm max-w-[80%] shadow-lg">
+                                            <p class="text-white text-sm">Oi! Vi que vocês fazem lentes de contato dental. Qual o preço?</p>
+                                            <span class="text-[10px] text-white/60 flex justify-end mt-1.5 gap-1">
+                                                14:32 <i class="fas fa-check-double"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- AI Message - Qualificação inteligente -->
+                                    <div class="flex justify-start msg-animate">
+                                        <div class="bg-[#1a1f25] px-4 py-3 rounded-2xl rounded-tl-sm max-w-[80%] border border-white/5 shadow-lg">
+                                            <p class="text-white text-sm">Olá! Tudo bem? 😊 Me chamo Ana, da ProteticMax!</p>
+                                            <p class="text-white text-sm mt-2">Antes de falar sobre valores, me conta: você já fez alguma avaliação dentária recentemente? Isso me ajuda a te indicar o tratamento ideal.</p>
+                                            <span class="text-[10px] text-white/40 flex justify-end mt-1.5">14:32</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- User Message -->
+                                    <div class="flex justify-end msg-animate">
+                                        <div class="bg-[#45a7b9] px-4 py-3 rounded-2xl rounded-tr-sm max-w-[80%] shadow-lg">
+                                            <p class="text-white text-sm">Não fiz não, mas meus dentes da frente são meio amarelados e queria corrigir</p>
+                                            <span class="text-[10px] text-white/60 flex justify-end mt-1.5 gap-1">
+                                                14:33 <i class="fas fa-check-double"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- AI Message - Resposta personalizada -->
+                                    <div class="flex justify-start msg-animate">
+                                        <div class="bg-[#1a1f25] px-4 py-3 rounded-2xl rounded-tl-sm max-w-[80%] border border-white/5 shadow-lg">
+                                            <p class="text-white text-sm">Entendi perfeitamente! Para casos de cor, as <span class="text-[#45a7b9] font-medium">lentes de resina</span> costumam resolver super bem e têm ótimo custo-benefício.</p>
+                                            <p class="text-white text-sm mt-2">Temos horário disponível <span class="font-medium">amanhã às 14h ou 16h</span> para uma avaliação gratuita. Qual fica melhor pra você?</p>
+                                            <span class="text-[10px] text-white/40 flex justify-end mt-1.5">14:33</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- User Message -->
+                                    <div class="flex justify-end msg-animate">
+                                        <div class="bg-[#45a7b9] px-4 py-3 rounded-2xl rounded-tr-sm max-w-[80%] shadow-lg">
+                                            <p class="text-white text-sm">16h tá ótimo!</p>
+                                            <span class="text-[10px] text-white/60 flex justify-end mt-1.5 gap-1">
+                                                14:34 <i class="fas fa-check-double"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Input -->
+                                <div class="bg-[#1a1f25] px-3 py-3 flex items-center gap-2 border-t border-white/5">
+                                    <div class="w-10 h-10 rounded-full bg-[#2a3039] flex items-center justify-center">
+                                        <i class="fas fa-plus text-gray-400 text-sm"></i>
+                                    </div>
+                                    <div class="flex-1 bg-[#2a3039] rounded-full px-4 py-2.5 flex items-center">
+                                        <span class="text-gray-500 text-sm">Mensagem</span>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-[#45a7b9] flex items-center justify-center glow-pulse">
+                                        <i class="fas fa-microphone text-white text-sm"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AI Overlay - Análise em tempo real -->
+                        <div class="ai-overlay absolute -right-4 lg:-right-8 top-1/2 -translate-y-1/2 w-72 bg-[#0a0a0a]/98 backdrop-blur-2xl border border-[#45a7b9]/30 rounded-2xl p-6 shadow-2xl">
+                            <div class="flex items-center gap-3 mb-5">
+                                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-[#45a7b9] to-[#3a8f9e] flex items-center justify-center shadow-lg shadow-[#45a7b9]/30">
+                                    <i class="fas fa-brain text-white text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">KVANT Neural</div>
+                                    <div class="text-xs text-[#45a7b9]">Processando em tempo real</div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3 text-xs">
+                                <div class="flex items-center gap-3 text-gray-300">
+                                    <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                                        <i class="fas fa-check text-green-400 text-[10px]"></i>
+                                    </div>
+                                    <span>Intenção detectada: <span class="text-white font-semibold">Compra</span></span>
+                                </div>
+                                <div class="flex items-center gap-3 text-gray-300">
+                                    <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                                        <i class="fas fa-check text-green-400 text-[10px]"></i>
+                                    </div>
+                                    <span>Problema: <span class="text-white font-semibold">Estética dental</span></span>
+                                </div>
+                                <div class="flex items-center gap-3 text-gray-300">
+                                    <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                                        <i class="fas fa-check text-green-400 text-[10px]"></i>
+                                    </div>
+                                    <span>Solução sugerida: <span class="text-[#45a7b9] font-semibold">Lentes de resina</span></span>
+                                </div>
+                                <div class="flex items-center gap-3 text-gray-300">
+                                    <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                                        <i class="fas fa-check text-green-400 text-[10px]"></i>
+                                    </div>
+                                    <span>Ação: <span class="text-white font-semibold">Agendamento ✓</span></span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-5 pt-5 border-t border-white/10">
+                                <div class="flex justify-between items-center mb-2">
+                                    <div class="text-[10px] text-gray-500 uppercase tracking-wider">Score de conversão</div>
+                                    <div class="text-xs text-[#45a7b9] font-bold mono">97%</div>
+                                </div>
+                                <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full w-[97%] bg-gradient-to-r from-[#45a7b9] to-[#5bc4d6] rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- QR Badge -->
+                        <div class="absolute -left-2 lg:-left-6 bottom-24 bg-gradient-to-br from-[#45a7b9] to-[#3a8f9e] p-4 rounded-2xl shadow-xl float-medium">
+                            <i class="fas fa-qrcode text-white text-2xl"></i>
+                            <div class="text-[10px] text-white/90 font-medium mt-2 text-center leading-tight">Conexão<br>QR Code</div>
+                        </div>
+                        
+                        <!-- 24/7 Badge -->
+                        <div class="absolute right-2 lg:right-8 bottom-10 bg-[#0a0a0a] border border-[#45a7b9]/40 px-4 py-2 rounded-full shadow-xl float-slow">
+                            <span class="text-xs font-semibold text-[#45a7b9]">⚡ Ativo 24/7</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- Process -->
-    <section class="process" id="processo">
-        <div class="container">
-            <div class="process__header">
-                <span class="section-label">Processo</span>
-                <h2 class="section-title">Três passos para automatizar suas vendas</h2>
+    
+    <!-- Clients Section -->
+    <section class="py-20 border-y border-white/5 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#45a7b9]/5 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+            <p class="text-center text-sm text-gray-500 uppercase tracking-widest mb-12">Empresas que confiam na KVANT</p>
+            <div class="flex flex-wrap justify-center items-center gap-12 lg:gap-20">
+                <div class="client-logo flex items-center gap-2 cursor-pointer">
+                    <div class="text-2xl font-bold text-white">Protetic<span class="text-[#45a7b9]">Max</span></div>
+                </div>
             </div>
-
-            <div class="process__steps">
-                <div class="process__step">
-                    <div class="process__step-number">01</div>
-                    <div class="process__step-content">
-                        <h3>Conectamos ao seu WhatsApp</h3>
-                        <p>Integração via API oficial do WhatsApp Business. Segura, rápida e sem complicação técnica.</p>
+        </div>
+    </section>
+    
+    <!-- Como Funciona Section -->
+    <section id="como-funciona" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <span class="inline-block px-5 py-2.5 rounded-full border-gradient text-[#45a7b9] text-xs font-semibold uppercase tracking-widest mb-8">
+                    Simples & Poderoso
+                </span>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8">Como Funciona</h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    Conexão via QR Code. Sem API complicada. Sem plataformas extras. 
+                    <span class="text-white font-medium">Funciona direto no seu WhatsApp.</span>
+                </p>
+            </div>
+            
+            <!-- Steps -->
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-10 mb-28 reveal">
+                <div class="glass-premium glass-hover rounded-3xl p-10 text-center relative group">
+                    <div class="absolute -top-5 left-10 mono text-7xl font-black text-[#45a7b9]/5 group-hover:text-[#45a7b9]/15 transition-colors duration-500">01</div>
+                    <div class="icon-box w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8 relative z-10">
+                        <i class="fas fa-qrcode text-3xl text-[#45a7b9]"></i>
                     </div>
+                    <h3 class="text-xl font-bold mb-4">Escaneie o QR Code</h3>
+                    <p class="text-gray-400 leading-relaxed">Conecte seu WhatsApp em segundos. Igual ao WhatsApp Web, simples assim. Sem complicações, sem plataformas.</p>
                 </div>
-                <div class="process__step">
-                    <div class="process__step-number">02</div>
-                    <div class="process__step-content">
-                        <h3>Treinamos a IA</h3>
-                        <p>Configuramos fluxos de vendas, tom de voz e regras do seu negócio. A IA aprende como você vende.</p>
+                
+                <div class="glass-premium glass-hover rounded-3xl p-10 text-center relative group">
+                    <div class="absolute -top-5 left-10 mono text-7xl font-black text-[#45a7b9]/5 group-hover:text-[#45a7b9]/15 transition-colors duration-500">02</div>
+                    <div class="icon-box w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8 relative z-10">
+                        <i class="fas fa-brain text-3xl text-[#45a7b9]"></i>
                     </div>
+                    <h3 class="text-xl font-bold mb-4">Criamos sua IA Sob Medida</h3>
+                    <p class="text-gray-400 leading-relaxed">Configuramos fluxos de vendas personalizados para seu negócio. O tempo varia conforme a complexidade.</p>
                 </div>
-                <div class="process__step">
-                    <div class="process__step-number">03</div>
-                    <div class="process__step-content">
-                        <h3>Vendas no automático</h3>
-                        <p>A IA assume o atendimento, qualifica leads e fecha vendas. Você acompanha os resultados em tempo real.</p>
+                
+                <div class="glass-premium glass-hover rounded-3xl p-10 text-center relative group">
+                    <div class="absolute -top-5 left-10 mono text-7xl font-black text-[#45a7b9]/5 group-hover:text-[#45a7b9]/15 transition-colors duration-500">03</div>
+                    <div class="icon-box w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8 relative z-10">
+                        <i class="fas fa-rocket text-3xl text-[#45a7b9]"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Vendas no Automático</h3>
+                    <p class="text-gray-400 leading-relaxed">Sua IA atende, qualifica e fecha vendas 24/7. Enquanto você dorme, ela trabalha.</p>
+                </div>
+            </div>
+            
+            <!-- Video Section -->
+            <div class="max-w-4xl mx-auto reveal">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl lg:text-3xl font-bold mb-4">Veja a IA em Ação</h3>
+                    <p class="text-gray-400">Assista como a KVANT transforma seu atendimento em máquina de vendas</p>
+                </div>
+                
+                <div class="video-wrapper cursor-pointer group" onclick="openVideoModal()">
+                    <div class="aspect-video bg-gradient-to-br from-[#0c0c0c] to-[#1a1a1a] rounded-2xl overflow-hidden relative">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200')] bg-cover bg-center opacity-20"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/50"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="video-play-btn w-24 h-24 rounded-full bg-gradient-to-br from-[#45a7b9] to-[#3a8f9e] flex items-center justify-center shadow-2xl shadow-[#45a7b9]/40">
+                                <i class="fas fa-play text-white text-3xl ml-2"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-6 left-6">
+                            <div class="text-base text-white font-semibold">Demonstração KVANT IA</div>
+                            <div class="text-sm text-gray-400 mt-1">Veja como funciona na prática</div>
+                        </div>
+                        <div class="absolute bottom-6 right-6 bg-black/70 backdrop-blur px-4 py-2 rounded-lg border border-white/10">
+                            <span class="text-sm text-white mono">3:45</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Features -->
-    <section class="features">
-        <div class="container">
-            <div class="features__header">
-                <span class="section-label">Recursos</span>
-                <h2 class="section-title">Tecnologia de ponta para sua operação</h2>
-            </div>
-
-            <div class="features__grid">
-                <div class="features__card">
-                    <div class="features__card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                        </svg>
+    
+    <!-- Benefits Section -->
+    <section id="beneficios" class="py-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#45a7b9]/5 via-transparent to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <div class="reveal">
+                    <span class="inline-block px-5 py-2.5 rounded-full border-gradient text-[#45a7b9] text-xs font-semibold uppercase tracking-widest mb-8">
+                        Por que a KVANT?
+                    </span>
+                    <h2 class="text-4xl sm:text-5xl font-bold mb-8 leading-tight">
+                        Pare de perder vendas por <span class="gradient-text">demora no atendimento</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 mb-12 leading-relaxed">
+                        Quando um lead chega no seu WhatsApp, cada segundo conta. Com a KVANT, a resposta é instantânea, personalizada e focada em converter.
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-5 group feature-card">
+                            <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-bolt text-[#45a7b9] text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Resposta Instantânea 24/7</h4>
+                                <p class="text-gray-400 leading-relaxed">Nunca mais perca um cliente por demora. Sua IA responde em segundos, a qualquer hora do dia ou da noite.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-5 group feature-card">
+                            <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-shield-alt text-[#45a7b9] text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">100% Seguro via QR Code</h4>
+                                <p class="text-gray-400 leading-relaxed">Conexão igual ao WhatsApp Web. Sem API complicada, sem plataformas. Funciona direto no seu WhatsApp.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-5 group feature-card">
+                            <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-sliders-h text-[#45a7b9] text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Ajustes Ilimitados</h4>
+                                <p class="text-gray-400 leading-relaxed">Nossa equipe ajusta a IA quantas vezes precisar, sem custo adicional. Sempre evoluindo com seu negócio.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-5 group feature-card">
+                            <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-plug text-[#45a7b9] text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Integrações Poderosas</h4>
+                                <p class="text-gray-400 leading-relaxed">Conecte com CRM, Google Sheets, calendário e muito mais. Automatize todo o fluxo de vendas.</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Resposta em &lt;3s</h3>
-                    <p>Tempo de resposta instantâneo. Nunca perca um lead por demora.</p>
                 </div>
-                <div class="features__card">
-                    <div class="features__card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                            <line x1="12" y1="22.08" x2="12" y2="12"/>
-                        </svg>
+                
+                <div class="reveal">
+                    <div class="grid grid-cols-2 gap-5">
+                        <div class="metric-card p-8 rounded-2xl text-center">
+                            <div class="text-5xl font-bold stat-number mb-3 mono">3x</div>
+                            <div class="text-sm text-gray-400">Mais conversões</div>
+                        </div>
+                        <div class="metric-card p-8 rounded-2xl text-center">
+                            <div class="text-5xl font-bold stat-number mb-3 mono">&lt;3s</div>
+                            <div class="text-sm text-gray-400">Tempo de resposta</div>
+                        </div>
+                        <div class="metric-card p-8 rounded-2xl text-center">
+                            <div class="text-5xl font-bold stat-number mb-3 mono">100%</div>
+                            <div class="text-sm text-gray-400">Leads atendidos</div>
+                        </div>
+                        <div class="metric-card p-8 rounded-2xl text-center">
+                            <div class="text-5xl font-bold stat-number mb-3 mono">-70%</div>
+                            <div class="text-sm text-gray-400">Custo operacional</div>
+                        </div>
                     </div>
-                    <h3>Integrações</h3>
-                    <p>CRM, planilhas, webhooks, pagamentos. Conecte tudo.</p>
-                </div>
-                <div class="features__card">
-                    <div class="features__card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                        </svg>
-                    </div>
-                    <h3>IA Conversacional</h3>
-                    <p>Conversas naturais. Clientes nem percebem que é IA.</p>
-                </div>
-                <div class="features__card">
-                    <div class="features__card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <line x1="18" y1="20" x2="18" y2="10"/>
-                            <line x1="12" y1="20" x2="12" y2="4"/>
-                            <line x1="6" y1="20" x2="6" y2="14"/>
-                        </svg>
-                    </div>
-                    <h3>Relatórios</h3>
-                    <p>Métricas de atendimento e conversão em tempo real.</p>
-                </div>
-                <div class="features__card">
-                    <div class="features__card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        </svg>
-                    </div>
-                    <h3>Segurança LGPD</h3>
-                    <p>Dados criptografados e conformidade total.</p>
-                </div>
-                <div class="features__card">
-                    <div class="features__card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                            <polyline points="22 4 12 14.01 9 11.01"/>
-                        </svg>
-                    </div>
-                    <h3>Suporte 24/7</h3>
-                    <p>Equipe sempre disponível para ajudar.</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Pricing -->
-    <section class="pricing" id="planos">
-        <div class="container">
-            <div class="pricing__header">
-                <span class="section-label">Planos</span>
-                <h2 class="section-title">Escolha o plano ideal</h2>
-                <p class="section-description">Soluções que escalam com sua empresa</p>
+    
+    <!-- Planos Section -->
+    <section id="planos" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <span class="inline-block px-5 py-2.5 rounded-full border-gradient text-[#45a7b9] text-xs font-semibold uppercase tracking-widest mb-8">
+                    Investimento
+                </span>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8">Escolha seu Plano</h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    Comece pequeno, escale conforme cresce. Todos os planos incluem suporte 24/7 e ajustes ilimitados.
+                </p>
             </div>
-
-            <div class="pricing__grid">
-                <!-- Starter -->
-                <div class="pricing__card">
-                    <div class="pricing__card-header">
-                        <h3 class="pricing__plan-name">Starter</h3>
-                        <p class="pricing__plan-description">Para profissionais liberais e negócios locais</p>
+            
+            <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto reveal">
+                <!-- Plano Starter -->
+                <div class="plan-card glass-premium rounded-[28px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold">Starter</h3>
+                            <span class="px-3 py-1.5 rounded-full bg-white/5 text-xs text-gray-400 font-medium">Básico</span>
+                        </div>
+                        <p class="text-gray-400 text-sm">Ideal para começar a automatizar</p>
                     </div>
-                    <div class="pricing__card-price">
-                        <span class="pricing__currency">R$</span>
-                        <span class="pricing__amount">497</span>
-                        <span class="pricing__period">/mês</span>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-sm text-gray-400">R$</span>
+                            <span class="text-5xl font-bold mono">397</span>
+                            <span class="text-gray-400">/mês</span>
+                        </div>
                     </div>
-                    <ul class="pricing__features">
-                        <li><span class="pricing__feature-value">1</span> WhatsApp conectado</li>
-                        <li><span class="pricing__feature-value">300</span> atendimentos/mês</li>
-                        <li><span class="pricing__feature-value">1</span> integração simples</li>
-                        <li><span class="pricing__feature-value">1</span> fluxo de vendas</li>
-                        <li>Suporte 24/7</li>
-                        <li>Ajustes ilimitados</li>
+                    
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">1 WhatsApp conectado</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Até 300 atendimentos/mês</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Suporte 24/7</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">1 integração simples</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">1 fluxo de vendas</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Ajustes ilimitados</span>
+                        </li>
                     </ul>
-                    <a href="#" class="btn btn--secondary btn--full">Começar agora</a>
+                    
+                    <div class="space-y-3">
+                        <a href="https://wa.me/553597612531?text=Olá! Tenho interesse no Plano Starter de R$397/mês. Sou profissional liberal/tenho um negócio local e quero automatizar meu atendimento no WhatsApp." class="btn-premium w-full py-4 rounded-xl text-center font-semibold block">
+                            Quero o Starter
+                        </a>
+                        <a href="https://wa.me/553597612531?text=Olá! Gostaria de testar a IA da KVANT gratuitamente antes de contratar o Plano Starter." class="btn-outline w-full py-4 rounded-xl text-center font-semibold text-[#45a7b9] block">
+                            Testar Primeiro
+                        </a>
+                    </div>
+                    
+                    <p class="text-center text-xs text-gray-500 mt-6">Ideal para: Profissionais liberais, clínicas pequenas, negócios locais</p>
                 </div>
-
-                <!-- Pro -->
-                <div class="pricing__card pricing__card--featured">
-                    <div class="pricing__card-badge">Recomendado</div>
-                    <div class="pricing__card-header">
-                        <h3 class="pricing__plan-name">Pro</h3>
-                        <p class="pricing__plan-description">Para empresas com time comercial ativo</p>
+                
+                <!-- Plano Pro -->
+                <div class="plan-card featured glass-premium rounded-[28px] p-8 flex flex-col relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-gradient-to-r from-[#45a7b9] to-[#3a8f9e] text-xs font-semibold text-white shadow-lg shadow-[#45a7b9]/30">
+                        Mais Popular
                     </div>
-                    <div class="pricing__card-price">
-                        <span class="pricing__currency">R$</span>
-                        <span class="pricing__amount">997</span>
-                        <span class="pricing__period">/mês</span>
+                    
+                    <div class="mb-8 mt-2">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold">Pro</h3>
+                            <span class="px-3 py-1.5 rounded-full bg-[#45a7b9]/20 text-xs text-[#45a7b9] font-medium">Recomendado</span>
+                        </div>
+                        <p class="text-gray-400 text-sm">Para quem quer escalar vendas</p>
                     </div>
-                    <ul class="pricing__features">
-                        <li><span class="pricing__feature-value">1</span> WhatsApp conectado</li>
-                        <li><span class="pricing__feature-value">1.000</span> atendimentos/mês</li>
-                        <li><span class="pricing__feature-value">3</span> integrações</li>
-                        <li><span class="pricing__feature-value">2</span> fluxos (vendas + suporte)</li>
-                        <li>Suporte 24/7 + Gerente de contas</li>
-                        <li>Relatório mensal</li>
-                        <li>Ajustes ilimitados</li>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-sm text-gray-400">R$</span>
+                            <span class="text-5xl font-bold mono">897</span>
+                            <span class="text-gray-400">/mês</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">1 WhatsApp conectado</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Até 1.000 atendimentos/mês</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Suporte 24/7 + Gerente de Contas</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Até 3 integrações</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">2 fluxos (vendas + suporte)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Ajustes ilimitados</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Relatório mensal de desempenho</span>
+                        </li>
                     </ul>
-                    <a href="#" class="btn btn--primary btn--full">Começar agora</a>
+                    
+                    <div class="space-y-3">
+                        <a href="https://wa.me/553597612531?text=Olá! Tenho interesse no Plano Pro de R$897/mês. Tenho uma empresa com time comercial e tráfego pago ativo, quero escalar minhas vendas com IA." class="btn-premium w-full py-4 rounded-xl text-center font-semibold block">
+                            Quero o Pro
+                        </a>
+                        <a href="https://wa.me/553597612531?text=Olá! Gostaria de testar a IA da KVANT gratuitamente antes de contratar o Plano Pro." class="btn-outline w-full py-4 rounded-xl text-center font-semibold text-[#45a7b9] block">
+                            Testar Primeiro
+                        </a>
+                    </div>
+                    
+                    <p class="text-center text-xs text-gray-500 mt-6">Ideal para: Empresas com time comercial, tráfego pago ativo</p>
                 </div>
-
-                <!-- Business -->
-                <div class="pricing__card">
-                    <div class="pricing__card-header">
-                        <h3 class="pricing__plan-name">Business</h3>
-                        <p class="pricing__plan-description">Para operações de alto volume</p>
+                
+                <!-- Plano Business -->
+                <div class="plan-card glass-premium rounded-[28px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold">Business</h3>
+                            <span class="px-3 py-1.5 rounded-full bg-white/5 text-xs text-gray-400 font-medium">Enterprise</span>
+                        </div>
+                        <p class="text-gray-400 text-sm">Para grandes operações</p>
                     </div>
-                    <div class="pricing__card-price">
-                        <span class="pricing__currency">R$</span>
-                        <span class="pricing__amount">1.997</span>
-                        <span class="pricing__period">/mês</span>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-sm text-gray-400">R$</span>
+                            <span class="text-5xl font-bold mono">1.897</span>
+                            <span class="text-gray-400">/mês</span>
+                        </div>
                     </div>
-                    <ul class="pricing__features">
-                        <li><span class="pricing__feature-value">2</span> WhatsApps conectados</li>
-                        <li><span class="pricing__feature-value">3.000</span> atendimentos/mês</li>
-                        <li>Integrações <span class="pricing__feature-value">ilimitadas</span></li>
-                        <li>Fluxos <span class="pricing__feature-value">ilimitados</span></li>
-                        <li>Suporte 24/7 + Gerente dedicado</li>
-                        <li>Relatório semanal</li>
-                        <li>1 call/mês de consultoria</li>
+                    
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Até 2 WhatsApps conectados</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Até 3.000 atendimentos/mês</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Suporte 24/7 + Gerente de Contas</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Integrações ilimitadas</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Fluxos ilimitados</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Ajustes ilimitados</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">Relatório semanal</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-[#45a7b9]/20 flex items-center justify-center">
+                                <i class="fas fa-check text-[#45a7b9] text-[10px]"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm">1 call/mês de consultoria</span>
+                        </li>
                     </ul>
-                    <a href="#" class="btn btn--secondary btn--full">Começar agora</a>
+                    
+                    <div class="space-y-3">
+                        <a href="https://wa.me/553597612531?text=Olá! Tenho interesse no Plano Business de R$1.897/mês. Tenho uma operação de alto volume com múltiplos produtos/serviços e preciso de uma solução robusta." class="btn-premium w-full py-4 rounded-xl text-center font-semibold block">
+                            Quero o Business
+                        </a>
+                        <a href="https://wa.me/553597612531?text=Olá! Gostaria de testar a IA da KVANT gratuitamente antes de contratar o Plano Business." class="btn-outline w-full py-4 rounded-xl text-center font-semibold text-[#45a7b9] block">
+                            Testar Primeiro
+                        </a>
+                    </div>
+                    
+                    <p class="text-center text-xs text-gray-500 mt-6">Ideal para: Alto volume, múltiplos produtos/serviços</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Guarantee -->
-    <section class="guarantee" id="garantia">
-        <div class="container">
-            <div class="guarantee__content">
-                <div class="guarantee__icon">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                        <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="2"/>
-                        <path d="M24 14V24L30 30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <text x="24" y="42" text-anchor="middle" fill="currentColor" font-size="8" font-weight="600">7 DIAS</text>
-                    </svg>
-                </div>
-                <div class="guarantee__text">
-                    <h2>Garantia de 7 dias</h2>
-                    <p>Teste a KVANT por 7 dias. Se não estiver satisfeito, devolvemos <strong>100% da primeira mensalidade</strong>. Sem perguntas.</p>
-                    <span class="guarantee__note">*Taxa de setup não reembolsável</span>
+    
+    <!-- Garantia Section -->
+    <section id="garantia" class="py-32 relative">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <div class="guarantee-card rounded-3xl p-12 lg:p-20 text-center relative overflow-hidden reveal">
+                <div class="relative z-10">
+                    <div class="w-32 h-32 rounded-full bg-gradient-to-br from-[#45a7b9] to-[#3a8f9e] flex items-center justify-center mx-auto mb-12 shadow-2xl shadow-[#45a7b9]/30 glow-pulse">
+                        <i class="fas fa-shield-alt text-white text-6xl"></i>
+                    </div>
+                    
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-8">Garantia de 7 Dias</h2>
+                    <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+                        Teste a KVANT sem risco. Se nos primeiros 7 dias você não ficar satisfeito, 
+                        <span class="text-white font-bold">devolvemos 100% da primeira mensalidade.</span>
+                    </p>
+                    
+                    <div class="flex flex-wrap justify-center gap-10 text-sm">
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 text-lg"></i>
+                            <span>Sem perguntas</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 text-lg"></i>
+                            <span>Reembolso em 48h</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 text-lg"></i>
+                            <span>Suporte até o fim</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-xs text-gray-500 mt-10">*Taxa de setup não reembolsável</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- CTA -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta__content">
-                <h2>Pronto para automatizar suas vendas?</h2>
-                <p>Junte-se às empresas que já vendem mais com menos esforço.</p>
-                <a href="#planos" class="btn btn--white btn--large">
-                    Começar agora
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+    
+    <!-- FAQ Section -->
+    <section class="py-32 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#45a7b9]/5 to-transparent"></div>
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 relative">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6">Perguntas Frequentes</h2>
+                <p class="text-xl text-gray-400">Tire suas dúvidas sobre a KVANT</p>
+            </div>
+            
+            <div class="space-y-4 reveal">
+                <div class="glass-premium rounded-2xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between faq-toggle group" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg group-hover:text-[#45a7b9] transition-colors">Como funciona a conexão via QR Code?</span>
+                        <i class="fas fa-plus text-[#45a7b9] transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-400 leading-relaxed">É simples como usar o WhatsApp Web! Você escaneia um QR Code com seu celular e pronto. Sua IA já está conectada ao seu WhatsApp. Não precisa de API oficial, não precisa de plataforma externa. Tudo funciona diretamente no seu WhatsApp pessoal ou comercial de forma 100% segura.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-premium rounded-2xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between faq-toggle group" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg group-hover:text-[#45a7b9] transition-colors">É seguro conectar meu WhatsApp?</span>
+                        <i class="fas fa-plus text-[#45a7b9] transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-400 leading-relaxed">100% seguro! Usamos a mesma tecnologia do WhatsApp Web. Seus dados ficam protegidos e você mantém total controle do seu número. Pode desconectar a qualquer momento com um clique.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-premium rounded-2xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between faq-toggle group" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg group-hover:text-[#45a7b9] transition-colors">Quanto tempo leva para a IA ficar pronta?</span>
+                        <i class="fas fa-plus text-[#45a7b9] transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-400 leading-relaxed">Depende da complexidade do seu negócio. Como criamos cada IA sob medida para sua empresa, o tempo de setup varia. Negócios mais simples podem estar rodando em 24-48h, enquanto operações mais complexas podem levar alguns dias. Vamos te informar o prazo exato durante a conversa inicial.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-premium rounded-2xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between faq-toggle group" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg group-hover:text-[#45a7b9] transition-colors">Posso usar meu número pessoal?</span>
+                        <i class="fas fa-plus text-[#45a7b9] transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-400 leading-relaxed">Sim! Você pode usar seu número pessoal ou um número comercial. A IA é inteligente o suficiente para identificar o contexto das conversas.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-premium rounded-2xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between faq-toggle group" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg group-hover:text-[#45a7b9] transition-colors">E se eu precisar de mais atendimentos?</span>
+                        <i class="fas fa-plus text-[#45a7b9] transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-400 leading-relaxed">Você pode fazer upgrade de plano a qualquer momento! Se ultrapassar o limite, entramos em contato para adequar seu plano às suas necessidades. Sem surpresas na fatura.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Final -->
+    <section class="py-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#45a7b9]/10 via-transparent to-[#45a7b9]/5"></div>
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center relative z-10 reveal">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-10 leading-tight">
+                Pronto para <span class="gradient-text">automatizar suas vendas?</span>
+            </h2>
+            <p class="text-xl text-gray-400 mb-14 max-w-2xl mx-auto leading-relaxed">
+                Comece agora e transforme seu WhatsApp em uma máquina de vendas que trabalha 24 horas por dia.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-5">
+                <a href="https://wa.me/553597612531?text=Olá! Quero começar a usar a IA da KVANT para automatizar minhas vendas. Qual o próximo passo?" class="btn-premium px-10 py-5 rounded-full text-lg font-semibold text-white flex items-center justify-center gap-3">
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    Falar com Especialista
+                </a>
+                <a href="https://wa.me/553597612531?text=Olá! Gostaria de testar a IA da KVANT gratuitamente antes de contratar." class="btn-outline px-10 py-5 rounded-full text-lg font-semibold text-[#45a7b9] flex items-center justify-center gap-3">
+                    <i class="fas fa-play"></i>
+                    Testar Grátis
                 </a>
             </div>
         </div>
     </section>
-
+    
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__main">
-                <div class="footer__brand">
-                    <a href="#" class="footer__logo">
-                        <svg class="footer__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="32" height="32" rx="8" fill="url(#footerLogoGradient)"/>
-                            <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="white" stroke-width="1.5" fill="none"/>
-                            <circle cx="16" cy="16" r="3" fill="white"/>
-                            <defs>
-                                <linearGradient id="footerLogoGradient" x1="0" y1="0" x2="32" y2="32">
-                                    <stop offset="0%" stop-color="#45a7b9"/>
-                                    <stop offset="100%" stop-color="#2d8a9a"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <span>KVANT</span>
-                    </a>
-                    <p>Engenharia de Vendas com Inteligência Artificial</p>
-                    <p class="footer__cnpj">CNPJ: 49.234.224/0001-57</p>
-                </div>
-
-                <div class="footer__links">
-                    <div class="footer__column">
-                        <h4>Produto</h4>
-                        <a href="#solucao">Solução</a>
-                        <a href="#processo">Processo</a>
-                        <a href="#planos">Planos</a>
-                        <a href="#garantia">Garantia</a>
+    <footer id="contato" class="py-24 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl overflow-hidden">
+                            <img src="android-chrome-192x192.png" alt="KVANT" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-2xl font-bold tracking-tight">KVANT</span>
                     </div>
-                    <div class="footer__column">
-                        <h4>Legal</h4>
-                        <a href="politica-privacidade.html">Política de Privacidade</a>
-                        <a href="termos.html">Termos de Serviço</a>
-                    </div>
-                    <div class="footer__column">
-                        <h4>Contato</h4>
-                        <a href="mailto:contato@kvant.com.br">contato@kvant.com.br</a>
+                    <p class="text-gray-400 mb-8 max-w-md leading-relaxed">
+                        Engenharia de Vendas com IA. Automatize seu atendimento no WhatsApp e venda 24 horas por dia, 7 dias por semana.
+                    </p>
+                    
+                    <div class="flex gap-4">
+                        <a href="#" class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#45a7b9]/20 hover:border-[#45a7b9]/30 border border-white/5 transition-all group">
+                            <i class="fab fa-instagram text-gray-400 group-hover:text-[#45a7b9] transition-colors text-lg"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#45a7b9]/20 hover:border-[#45a7b9]/30 border border-white/5 transition-all group">
+                            <i class="fab fa-facebook-f text-gray-400 group-hover:text-[#45a7b9] transition-colors text-lg"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#45a7b9]/20 hover:border-[#45a7b9]/30 border border-white/5 transition-all group">
+                            <i class="fab fa-linkedin-in text-gray-400 group-hover:text-[#45a7b9] transition-colors text-lg"></i>
+                        </a>
                     </div>
                 </div>
-
-                <div class="footer__social">
-                    <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="2" width="20" height="20" rx="5"/>
-                            <circle cx="12" cy="12" r="4"/>
-                            <circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/>
-                        </svg>
-                    </a>
-                    <a href="#" target="_blank" rel="noopener" aria-label="Facebook">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                        </svg>
-                    </a>
-                    <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                            <rect x="2" y="9" width="4" height="12"/>
-                            <circle cx="4" cy="4" r="2"/>
-                        </svg>
-                    </a>
+                
+                <div>
+                    <h4 class="font-semibold mb-6 text-sm uppercase tracking-widest text-gray-300">Links</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#como-funciona" class="hover:text-[#45a7b9] transition-colors">Como Funciona</a></li>
+                        <li><a href="#beneficios" class="hover:text-[#45a7b9] transition-colors">Benefícios</a></li>
+                        <li><a href="#planos" class="hover:text-[#45a7b9] transition-colors">Planos</a></li>
+                        <li><a href="#garantia" class="hover:text-[#45a7b9] transition-colors">Garantia</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-6 text-sm uppercase tracking-widest text-gray-300">Contato</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-[#45a7b9]"></i>
+                            <a href="mailto:contato@kvant.com.br" class="hover:text-[#45a7b9] transition-colors">contato@kvant.com.br</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fab fa-whatsapp text-[#45a7b9]"></i>
+                            <a href="https://wa.me/553597612531" class="hover:text-[#45a7b9] transition-colors">+55 35 9761-2531</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="footer__bottom">
-                <p>&copy; 2025 KVANT. Todos os direitos reservados.</p>
+            
+            <div class="line-divider mb-8"></div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-500">
+                <div>
+                    <p class="mono text-xs">CNPJ: 49.234.224/0001-57</p>
+                    <p class="mt-2">© 2024 KVANT. Todos os direitos reservados.</p>
+                </div>
+                
+                <div class="flex gap-8">
+                    <a href="#politica-privacidade" class="hover:text-[#45a7b9] transition-colors">Política de Privacidade</a>
+                    <a href="#termos" class="hover:text-[#45a7b9] transition-colors">Termos de Uso</a>
+                </div>
             </div>
         </div>
     </footer>
-    <script src="script.js"></script>
+    
+    <!-- Política de Privacidade Modal -->
+    <div id="politica-privacidade" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
+        <div class="bg-[#0a0a0a] rounded-3xl p-8 max-w-3xl max-h-[80vh] overflow-y-auto border border-white/10">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-bold">Política de Privacidade</h3>
+                <button onclick="closeModal('politica-privacidade')" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="text-gray-400 space-y-4 leading-relaxed">
+                <p>[Insira aqui o texto da sua Política de Privacidade]</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Termos de Uso Modal -->
+    <div id="termos" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
+        <div class="bg-[#0a0a0a] rounded-3xl p-8 max-w-3xl max-h-[80vh] overflow-y-auto border border-white/10">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-bold">Termos de Uso</h3>
+                <button onclick="closeModal('termos')" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="text-gray-400 space-y-4 leading-relaxed">
+                <p>[Insira aqui o texto dos seus Termos de Uso]</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Video Modal -->
+    <div id="videoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/98 backdrop-blur-xl">
+        <div class="relative w-full max-w-5xl">
+            <button onclick="closeVideoModal()" class="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                <i class="fas fa-times text-white"></i>
+            </button>
+            <div class="aspect-video bg-black rounded-2xl overflow-hidden border border-white/10">
+                <iframe id="youtubeFrame" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/553597612531?text=Olá! Vim pelo site e quero saber mais sobre a KVANT." class="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-40 glow-pulse" style="--tw-shadow-color: rgba(34, 197, 94, 0.4)">
+        <i class="fab fa-whatsapp text-white text-3xl"></i>
+    </a>
+
+    <script>
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            const isOpen = !content.classList.contains('hidden');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.faq-toggle i').forEach(i => {
+                i.classList.remove('fa-minus');
+                i.classList.add('fa-plus');
+                i.style.transform = 'rotate(0deg)';
+            });
+            
+            if (!isOpen) {
+                content.classList.remove('hidden');
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Modal Functions
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Video Modal
+        function openVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('youtubeFrame');
+            // Substitua SEU_VIDEO_ID pelo ID real do seu vídeo do YouTube
+            iframe.src = 'https://www.youtube.com/embed/SEU_VIDEO_ID?autoplay=1';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('youtubeFrame');
+            iframe.src = '';
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Mobile Menu
+        function toggleMobileMenu() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+            document.body.style.overflow = document.querySelector('.mobile-menu').classList.contains('active') ? 'hidden' : 'auto';
+        }
+        
+        // Links for modals
+        document.querySelectorAll('a[href="#politica-privacidade"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal('politica-privacidade');
+            });
+        });
+        
+        document.querySelectorAll('a[href="#termos"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal('termos');
+            });
+        });
+        
+        // Close modals on backdrop click
+        ['politica-privacidade', 'termos', 'videoModal'].forEach(id => {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        if (id === 'videoModal') {
+                            closeVideoModal();
+                        } else {
+                            closeModal(id);
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.scrollY;
+            
+            if (currentScroll > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.9)';
+                nav.style.borderColor = 'rgba(69, 167, 185, 0.1)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.6)';
+                nav.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '#politica-privacidade' && href !== '#termos') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+        
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < window.innerHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+        
+        // Escape key closes modals
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal('politica-privacidade');
+                closeModal('termos');
+                closeVideoModal();
+                if (document.querySelector('.mobile-menu').classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+    </script>
 </body>
-
 </html>
-
